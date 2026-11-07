@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chalés do Rancho — site oficial
 
-## Getting Started
+Site institucional da Pousada Chalés do Rancho, na Serra da Canastra (Vargem Bonita — MG).
+Next.js 16 (App Router) + React 19 + TypeScript.
 
-First, run the development server:
+## Rodar localmente
 
 ```bash
+cd chale-rancho-app
+npm install
+cp .env.example .env.local   # preencher WhatsApp confirmado pela pousada
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra http://localhost:3000. Para ver no celular (mesmo Wi-Fi):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx next dev -H 0.0.0.0 -p 3000
+# e acesse http://<ip-do-pc>:3000 (allowedDevOrigins já inclui o IP local)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Variáveis de ambiente
 
-## Learn More
+| Variável | Descrição |
+|---|---|
+| `NEXT_PUBLIC_WHATSAPP_LODGING` | Número WhatsApp (hospedagem), só dígitos, formato internacional |
+| `NEXT_PUBLIC_WHATSAPP_EVENTS` | Número WhatsApp (cavalgadas/eventos) |
+| `NEXT_PUBLIC_SITE_URL` | URL canônica do site em produção (ex.: https://chalesdorancho.com.br) |
 
-To learn more about Next.js, take a look at the following resources:
+## Publicar (deploy)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Este projeto precisa de servidor Node — **não funciona no GitHub Pages**.
+Recomendado: [Vercel](https://vercel.com) (gratuito, integra com o GitHub):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Importe o repositório em vercel.com/new
+2. Nas variáveis de ambiente do projeto, adicione as 3 variáveis acima
+3. Deploy automático a cada push na branch principal
 
-## Deploy on Vercel
+## Estrutura
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` — rotas (`/`, `/acomodacoes`, `/cavalgadas`, `/experiencias`, `/localizacao`), `robots.ts`, `sitemap.ts`
+- `components/` — `SiteHeader`, `SiteFooter`, `HeroSection`, `BookingForm`, `CavalgadaCTA`, `Reveal`
+- `lib/content.ts` — conteúdo centralizado (endereço, links, textos, fotos)
+- `lib/whatsapp.ts` — montagem das mensagens e link `wa.me`
+- `public/images`, `public/videos`, `public/brand` — mídia real fornecida pela pousada
+- `docs/` (na raiz do workspace) — brand identity, design system, arquitetura e pendências
