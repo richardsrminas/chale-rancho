@@ -26,8 +26,16 @@ export default function SiteHeader() {
     setOpen(false);
   }
 
+  // Páginas com hero em tela cheia e mídia escura: o header começa claro (on-dark)
+  // e ganha fundo ao rolar. Nas páginas internas o fundo claro já tem contraste.
+  const darkHero = pathname === "/" || pathname === "/cavalgadas";
+
   return (
-    <header className={`site-header ${scrolled || open ? "scrolled" : ""} ${open ? "menu-open" : ""}`}>
+    <header
+      className={`site-header ${(scrolled || open) ? "scrolled" : ""} ${open ? "menu-open" : ""} ${
+        darkHero && !scrolled && !open ? "on-dark" : ""
+      }`}
+    >
       <div className="container header-inner">
         <Link href="/" className="header-logo" aria-label="Chalés do Rancho — início">
           <Image src="/brand/logo.jpg" alt="" width={44} height={44} priority />

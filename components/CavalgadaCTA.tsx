@@ -16,8 +16,21 @@ export default function CavalgadaCTA() {
 
   if (!number) {
     return (
-      <p className="error">
-        WhatsApp de eventos ainda não configurado. Defina NEXT_PUBLIC_WHATSAPP_EVENTS no .env.local.
+      <p className="pending-note" role="status">
+        Inscrições pelo WhatsApp em configuração.{" "}
+        <a
+          href="https://www.instagram.com/cavalgadamigosdoranchocanastra/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Acompanhe a cavalgada no Instagram
+        </a>{" "}
+        para saber das próximas datas.
+        {process.env.NODE_ENV === "development" && (
+          <small className="dev-hint">
+            (dev: defina NEXT_PUBLIC_WHATSAPP_EVENTS no .env.local)
+          </small>
+        )}
       </p>
     );
   }

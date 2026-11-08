@@ -6,6 +6,7 @@ import BookingForm from "@/components/BookingForm";
 import Reveal from "@/components/Reveal";
 import { accommodations, amenities, breakfast, gallery, horseFeature, site } from "@/lib/content";
 
+
 export const metadata: Metadata = {
   title: "Chalés do Rancho | Hospedagem e lazer na Serra da Canastra",
   description:
@@ -77,26 +78,47 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-label="Cavalgada destaque">
+      <section className="section section-forest horse-campaign" aria-label="Cavalgada destaque">
         <div className="container">
-          <Reveal>
-            <div className="feature-horse">
+          <Reveal className="horse-campaign-head">
+            <span className="eyebrow" style={{ color: "var(--color-earth)" }}>
+              {horseFeature.eyebrow}
+            </span>
+            <h2 className="horse-campaign-title">{horseFeature.title}</h2>
+            <p className="horse-campaign-text">{horseFeature.text}</p>
+            <Link href={horseFeature.cta.href} className="btn btn-light">
+              {horseFeature.cta.label}
+            </Link>
+          </Reveal>
+          <div className="horse-gallery">
+            <Reveal as="figure" className="horse-gallery-main">
               <Image
                 src="/images/cavalgada/cavalgada-grupo.jpg"
                 alt="Grupo de cavaleiros reunido em uma colina da Serra da Canastra durante a Cavalgada Amigos do Rancho Canastra"
-                fill
-                sizes="100vw"
+                width={1600}
+                height={1200}
                 loading="lazy"
               />
-              <div className="feature-horse-content">
-                <span className="eyebrow">{horseFeature.eyebrow}</span>
-                <h2>{horseFeature.title}</h2>
-                <p>{horseFeature.text}</p>
-                <Link href={horseFeature.cta.href} className="btn btn-light">
-                  {horseFeature.cta.label}
-                </Link>
-              </div>
-            </div>
+            </Reveal>
+            <Reveal as="figure" className="horse-gallery-side">
+              <Image
+                src="/images/cavalgada/cavalgada-rio.jpg"
+                alt="Cavaleiros atravessando o rio de mãos dadas durante a cavalgada"
+                width={800}
+                height={1000}
+                loading="lazy"
+              />
+            </Reveal>
+          </div>
+          <Reveal style={{ marginTop: "2.5rem" }}>
+            <a
+              className="link-editorial link-light"
+              href={site.instagramCavalgada}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Acompanhar as próximas cavalgadas no Instagram
+            </a>
           </Reveal>
         </div>
       </section>

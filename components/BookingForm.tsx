@@ -143,8 +143,21 @@ export default function BookingForm() {
             Consultar pelo WhatsApp
           </button>
         ) : (
-          <p className="error">
-            WhatsApp ainda não configurado. Defina NEXT_PUBLIC_WHATSAPP_LODGING no .env.local.
+          <p className="pending-note" role="status">
+            Consulta pelo WhatsApp em configuração.{" "}
+            <a
+              href="https://www.instagram.com/chalesdorancho.canastra/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Fale com a gente pelo Instagram
+            </a>{" "}
+            enquanto isso.
+            {process.env.NODE_ENV === "development" && (
+              <small className="dev-hint">
+                (dev: defina NEXT_PUBLIC_WHATSAPP_LODGING no .env.local)
+              </small>
+            )}
           </p>
         )}
       </div>

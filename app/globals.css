@@ -382,6 +382,43 @@ h3,
   background: var(--color-forest);
 }
 
+/* Entrada cinematográfica da mídia e do texto da hero */
+@keyframes hero-media-in {
+  from {
+    opacity: 0;
+    transform: scale(1.045);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-media img,
+.hero-media video {
+  animation: hero-media-in 1.6s cubic-bezier(0.22, 0.61, 0.21, 1) both;
+}
+
+.hero-content > * {
+  animation: hero-text-in 0.9s cubic-bezier(0.22, 0.61, 0.21, 1) both;
+}
+
+.hero-content > *:nth-child(1) { animation-delay: 0.25s; }
+.hero-content > *:nth-child(2) { animation-delay: 0.4s; }
+.hero-content > *:nth-child(3) { animation-delay: 0.55s; }
+.hero-content > *:nth-child(4) { animation-delay: 0.7s; }
+
 .hero-media {
   position: absolute;
   inset: 0;
@@ -583,6 +620,30 @@ h3,
   min-height: 1.4em;
 }
 
+/* Estado de configuração pendente: tom neutro e legível, sem parecer erro técnico */
+.pending-note {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-forest);
+  background: var(--color-linen);
+  border: 1px dashed rgba(48, 61, 49, 0.35);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+}
+
+.pending-note a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pending-note .dev-hint {
+  display: block;
+  margin-top: 0.35rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
 /* ---------- Editorial split ---------- */
 
 .split-section {
@@ -673,6 +734,72 @@ h3,
 .feature-horse-content p {
   color: rgba(245, 240, 216, 0.92);
   max-width: 52ch;
+}
+
+/* ---------- Campanha de cavalgada (editorial, assimétrica) ---------- */
+
+.horse-campaign-head {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  max-width: 880px;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.horse-campaign-title {
+  color: var(--color-ivory);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1.02;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+.horse-campaign-text {
+  color: rgba(245, 240, 216, 0.88);
+  max-width: 56ch;
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+}
+
+.horse-gallery {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .horse-gallery {
+    grid-template-columns: 1.7fr 1fr;
+    align-items: end;
+  }
+}
+
+.horse-gallery figure {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 0;
+}
+
+.horse-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.horse-gallery-main img {
+  aspect-ratio: 16 / 10;
+}
+
+.horse-gallery-side img {
+  aspect-ratio: 4 / 5;
+}
+
+.link-light {
+  color: var(--color-ivory);
+}
+
+.link-light:hover {
+  color: var(--color-earth);
 }
 
 /* ---------- Galeria ---------- */
@@ -983,6 +1110,18 @@ h3,
   transform: none;
 }
 
+/* Zoom muito leve e contínuo nas fotografias dentro de reveal/figuras */
+.reveal img,
+.split-media img,
+.feature-horse > img {
+  transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.21, 1);
+}
+
+.reveal.visible img,
+.split-media:hover img {
+  transform: scale(1.03);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -992,8 +1131,20 @@ h3,
     transform: none;
     transition: none;
   }
+  .hero-media img,
+  .hero-media video,
+  .hero-content > * {
+    animation: none;
+  }
+  .reveal img,
+  .split-media img,
+  .feature-horse > img,
   .gallery-grid img,
   .btn {
     transition: none;
+  }
+  .reveal.visible img,
+  .split-media:hover img {
+    transform: none;
   }
 }

@@ -12,12 +12,13 @@ export const metadata: Metadata = {
 
 const gallery = [
   {
-    img: "/images/cavalgada/cavalgada-rio.jpg",
-    alt: "Cavaleiros atravessando o rio de mãos dadas durante a cavalgada",
-  },
-  {
     img: "/images/cavalgada/cavalgada-grupo.jpg",
     alt: "Grupo de cavaleiros alinhado em uma colina da Serra da Canastra",
+    wide: true,
+  },
+  {
+    img: "/images/cavalgada/cavalgada-rio.jpg",
+    alt: "Cavaleiros atravessando o rio de mãos dadas durante a cavalgada",
   },
 ];
 
@@ -108,8 +109,14 @@ export default function CavalgadasPage() {
           </Reveal>
           <div className="gallery-grid">
             {gallery.map((g) => (
-              <Reveal as="figure" key={g.img}>
-                <Image src={g.img} alt={g.alt} width={1600} height={1200} loading="lazy" />
+              <Reveal as="figure" key={g.img} className={g.wide ? "wide" : ""}>
+                <Image
+                  src={g.img}
+                  alt={g.alt}
+                  width={g.wide ? 1600 : 800}
+                  height={g.wide ? 1200 : 1000}
+                  loading="lazy"
+                />
               </Reveal>
             ))}
           </div>
