@@ -233,7 +233,10 @@ export default function Home() {
             <span className="eyebrow" style={{ color: "var(--color-earth)" }}>
               Planeje sua estadia
             </span>
-            <h2 className="h2">Conte as datas da sua viagem e a gente responde no WhatsApp.</h2>
+            <h2 className="h2">Conte as datas da sua viagem.</h2>
+            <p className="cta-lead">
+              A gente responde no WhatsApp com disponibilidade e valores — sem compromisso.
+            </p>
             <Link href="#consulta" className="btn btn-light">
               Consultar disponibilidade
             </Link>

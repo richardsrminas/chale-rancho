@@ -417,9 +417,10 @@ h3,
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(41, 45, 39, 0.72) 0%,
-    rgba(41, 45, 39, 0.25) 45%,
-    rgba(41, 45, 39, 0.05) 70%
+    rgba(41, 45, 39, 0.88) 0%,
+    rgba(41, 45, 39, 0.55) 40%,
+    rgba(41, 45, 39, 0.3) 70%,
+    rgba(41, 45, 39, 0.18) 100%
   );
 }
 
@@ -510,6 +511,16 @@ h3,
 .booking-form {
   display: grid;
   gap: 1rem;
+}
+
+@media (max-width: 759px) {
+  .booking-form .field:last-child {
+    display: grid;
+    gap: 0.75rem;
+  }
+  .booking-form .btn {
+    width: 100%;
+  }
 }
 
 @media (min-width: 760px) {
@@ -723,7 +734,7 @@ h3,
 }
 
 .amenity-media {
-  display: none;
+  display: block;
   border-radius: var(--radius);
   overflow: hidden;
 }
@@ -735,13 +746,16 @@ h3,
   aspect-ratio: 3 / 2;
 }
 
+.amenity-list li {
+  grid-template-columns: 2.25rem 88px 1fr;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 @media (min-width: 900px) {
   .amenity-list li {
     grid-template-columns: 3rem 220px 1fr;
-    align-items: center;
-  }
-  .amenity-media {
-    display: block;
+    gap: 1rem;
   }
 }
 
@@ -815,11 +829,24 @@ h3,
   display: grid;
   gap: 1.5rem;
   justify-items: center;
+  padding-block: clamp(5rem, 12vw, 9rem);
 }
 
 .cta-final h2 {
   max-width: 18ch;
   text-wrap: balance;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+}
+
+.cta-final .cta-lead {
+  color: rgba(245, 240, 216, 0.85);
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.5vw, 1.1875rem);
+}
+
+.cta-final .btn {
+  margin-top: 0.75rem;
+  min-width: min(100%, 320px);
 }
 
 /* ---------- Footer ---------- */
