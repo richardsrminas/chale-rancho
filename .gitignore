@@ -38,4 +38,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+
+# notas internas do agente (não versionar)
+SCRIPT_ENV.md
+EXPERIENCIAS_ESQUEMA.md
