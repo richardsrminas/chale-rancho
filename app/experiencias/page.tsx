@@ -1,34 +1,42 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
-import { amenities } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Lazer e experiências",
-  description:
-    "Piscina, fogueira, lagos, prainha do Rio São Francisco, café da manhã colonial e animais na propriedade do Chalés do Rancho, na Serra da Canastra.",
-};
-
-const more = [
+const experiences = [
+  {
+    img: "/images/lazer/piscina02.jpg",
+    alt: "Piscina ao ar livre com deck de madeira e vista para as colinas",
+    title: "Piscina",
+    text: "Deck de madeira com vista para as colinas da Canastra.",
+  },
+  {
+    img: "/images/lazer/fogueira01.jpeg",
+    alt: "Fogueira à noite com cadeiras de madeira ao redor",
+    title: "Fogueira",
+    text: "Cadeiras de madeira ao redor do fogo para noites tranquilas.",
+  },
+  {
+    img: "/images/lazer/rio.jpg",
+    alt: "Prainha do Rio São Francisco a poucos minutos da propriedade",
+    title: "Rio São Francisco",
+    text: "Acesso à prainha do rio, a poucos minutos da propriedade.",
+  },
   {
     img: "/images/lazer/salao2.jpg",
     alt: "Salão rústico de madeira usado para refeições e eventos",
     title: "Salão e área de churrasco",
-  },
-  {
-    img: "/images/lazer/fogueira.jpg",
-    alt: "Fogueira com cadeiras de madeira durante o dia",
-    title: "Fogueira ao ar livre",
-  },
-  {
-    img: "/images/paisagem/vista05.jpeg",
-    alt: "Lagoa da propriedade ao entardecer",
-    title: "Dois lagos na propriedade",
+    text: "Espaço de convivência para refeições e encontros.",
   },
   {
     img: "/images/cafe/cafe01.jpg",
     alt: "Mesa de café da manhã com cestas de pães caseiros",
-    title: "Quitandas caseiras",
+    title: "Café da manhã colonial",
+    text: "Quitandas caseiras e sabores da região, servidos com calma.",
+  },
+  {
+    img: "/images/paisagem/vista05.jpeg",
+    alt: "Lagoa da propriedade ao entardecer",
+    title: "Lagos e natureza",
+    text: "Dois lagos na propriedade cercados de silêncio e verde.",
   },
 ];
 
@@ -39,47 +47,39 @@ export default function ExperienciasPage() {
         <span className="eyebrow">Experiências</span>
         <h1 className="h1">Lazer e sabores na propriedade.</h1>
         <p className="lead">
-         Piscina, fogueira, lagos, rio e um café da manhã que sabe a Minas Gerais.
+          Piscina, fogueira, lagos, rio e um café da manhã que sabe a Minas Gerais.
         </p>
       </div>
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section experiences-grid" style={{ paddingTop: 0 }}>
         <div className="container">
-          <div className="gallery-grid">
-            {amenities.map((a) => (
-              <Reveal as="figure" key={a.title}>
-                <Image src={a.img} alt={a.text} width={800} height={800} loading="lazy" />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="container">
-          <Reveal className="section-head">
-            <span className="eyebrow">Mais da estadia</span>
-            <h2 className="h2">Para viver sem pressa.</h2>
-          </Reveal>
-          <div className="gallery-grid">
-            {more.map((m, i) => (
-              <Reveal as="figure" key={m.title} className={i === 0 ? "wide" : ""}>
+          {experiences.map((e) => (
+            <Reveal key={e.img} className="experience-card">
+              <figure className="experience-figure">
                 <Image
-                  src={m.img}
-                  alt={m.alt}
-                  width={i === 0 ? 1600 : 800}
-                  height={i === 0 ? 1200 : 800}
+                  src={e.img}
+                  alt={e.alt}
+                  width={1600}
+                  height={1200}
                   loading="lazy"
+                  sizes="(max-width: 759px) 100vw, 50vw"
                 />
-              </Reveal>
-            ))}
-          </div>
-          <Reveal style={{ marginTop: "2.5rem" }}>
-            <p className="muted">
-              Na propriedade também vivem pavões, galinhas, gansos, pôneis, cavalos e vacas.
-              Passeios a cavalo são feitos mediante agendamento — veja a página de cavalgadas.
-            </p>
-          </Reveal>
+                <figcaption className="experience-caption">
+                  <span className="eyebrow" style={{ color: "var(--color-earth)" }}>
+                    {e.title}
+                  </span>
+                  <p className="experience-text">{e.text}</p>
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
         </div>
       </section>
+      <Reveal style={{ marginTop: "3rem" }}>
+        <p className="muted">
+          Na propriedade também vivem pavões, galinhas, gansos, pôneis, cavalos e vacas.
+          Passeios a cavalo são feitos mediante agendamento — veja a página de cavalgadas.
+        </p>
+      </Reveal>
     </>
   );
 }

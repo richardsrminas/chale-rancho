@@ -161,6 +161,10 @@ export default function BookingForm() {
           </p>
         )}
       </div>
+      <p className="booking-disclaimer">
+        Esta é uma consulta de disponibilidade por WhatsApp, não uma reserva
+        confirmada. A pousada responderá com valores e disponibilidade.
+      </p>
     </form>
   );
 }
