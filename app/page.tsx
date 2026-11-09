@@ -2,15 +2,26 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
-import BookingForm from "@/components/BookingForm";
+import BookingBar from "@/components/BookingBar";
 import Reveal from "@/components/Reveal";
-import { accommodations, amenities, breakfast, gallery, horseFeature, site } from "@/lib/content";
-
-
+import ExperienceScroll from "@/components/ExperienceScroll";
+import { home } from "@/lib/content";
 export const metadata: Metadata = {
-  title: "Chalés do Rancho | Hospedagem e lazer na Serra da Canastra",
+  title: {
+    default: "Chalés do Rancho | Hospedagem e lazer na Serra da Canastra",
+    template: "%s | Chalés do Rancho",
+  },
   description:
-    "Pousada na Serra da Canastra, em Vargem Bonita (MG). Chalés privativos, piscina, fogueira, café da manhã colonial e a Cavalgada Amigos do Rancho Canastra.",
+    "Pousada na Serra da Canastra, em Vargem Bonita (MG). Chalés privativos, piscina, fogueira, café da manhã colonial e a Cavalgada Amigos do Rancho Canastra. Consulte disponibilidade pelo WhatsApp.",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "Chalés do Rancho",
+    title: "Chalés do Rancho | Hospedagem e lazer na Serra da Canastra",
+    description:
+      "Refúgio na Serra da Canastra com chalés privativos, lazer e a Cavalgada Amigos do Rancho Canastra.",
+    images: [{ url: "/brand/logo.jpg", width: 2048, height: 2048 }],
+  },
 };
 
 export default function Home() {
@@ -18,177 +29,117 @@ export default function Home() {
     <>
       <HeroSection />
 
-      <section className="booking" id="consulta" aria-label="Consulta de hospedagem">
-        <div className="container">
-          <BookingForm />
-        </div>
-      </section>
+      <BookingBar />
 
-      <section className="section">
+      <section className="section section-enter" aria-label="A pousada">
         <div className="container split-section">
           <Reveal className="split-media">
             <Image
-              src="/images/propriedade/placa01.jpg"
-              alt="Letreiro de madeira do Chalés do Rancho ao entardecer"
-              width={576}
-              height={768}
+              src={home.intro.image}
+              alt={home.intro.imageAlt}
+              width={1600}
+              height={1200}
+              loading="lazy"
+              sizes="(max-width: 759px) 100vw, 800px"
             />
           </Reveal>
           <Reveal className="split-copy">
-            <span className="eyebrow">A pousada</span>
-            <h2 className="h2">Um lugar para desacelerar e aproveitar a Canastra.</h2>
-            <p className="lead">
-              Na entrada de Vargem Bonita, a primeira cidade banhada pelo Rio São Francisco,
-              o Chalés do Rancho é um refúgio rural com chalés privativos, lazer ao ar livre
-              e a hospitalidade mineira de sempre.
-            </p>
-            <Link href="/acomodacoes" className="link-editorial">
-              Conheça as acomodações
+            <span className="eyebrow">{home.intro.eyebrow}</span>
+            <h2 className="h2">{home.intro.title}</h2>
+            <p className="lead">{home.intro.text}</p>
+            <Link href={home.intro.cta.href} className="link-editorial">
+              {home.intro.cta.label}
             </Link>
           </Reveal>
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-label="Acomodações">
-        <div className="container">
-          <Reveal className="section-head split">
-            <div>
-              <span className="eyebrow">Acomodações</span>
-              <h2 className="h2">
-                Conforto e tranquilidade para descansar depois de um dia de descobertas.
-              </h2>
-            </div>
-            <p className="muted">
-              Chalés privativos com ar-condicionado, TV, Wi-Fi, frigobar, ventilador de teto
-              e varanda com vista. Algumas unidades contam com cozinha completa.
-            </p>
-          </Reveal>
-          <div className="gallery-grid">
-            {accommodations.slice(0, 4).map((a) => (
-              <Reveal as="figure" key={a.img}>
-                <Image src={a.img} alt={a.alt} width={800} height={800} loading="lazy" />
-              </Reveal>
-            ))}
-          </div>
-          <div style={{ marginTop: "2rem" }}>
-            <Link href="/acomodacoes" className="btn btn-secondary">
-              Ver todas as acomodações
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section section-forest horse-campaign" aria-label="Cavalgada destaque">
+      <section className="section section-forest section-enter" aria-label="Cavalgada destaque">
         <div className="container">
           <Reveal className="horse-campaign-head">
-            <span className="eyebrow" style={{ color: "var(--color-earth)" }}>
-              {horseFeature.eyebrow}
-            </span>
-            <h2 className="horse-campaign-title">{horseFeature.title}</h2>
-            <p className="horse-campaign-text">{horseFeature.text}</p>
-            <Link href={horseFeature.cta.href} className="btn btn-light">
-              {horseFeature.cta.label}
+            <span className="eyebrow">{home.horsebackRiding.eyebrow}</span>
+            <h2 className="horse-campaign-title">{home.horsebackRiding.title}</h2>
+            <p className="horse-campaign-text">{home.horsebackRiding.text}</p>
+            <Link href={home.horsebackRiding.cta.href} className="btn btn-light">
+              {home.horsebackRiding.cta.label}
             </Link>
           </Reveal>
           <div className="horse-gallery">
             <Reveal as="figure" className="horse-gallery-main">
               <Image
-                src="/images/cavalgada/cavalgada-grupo.jpg"
-                alt="Grupo de cavaleiros reunido em uma colina da Serra da Canastra durante a Cavalgada Amigos do Rancho Canastra"
+                src={home.horsebackRiding.imageMain}
+                alt={home.horsebackRiding.imageMainAlt}
                 width={1600}
-                height={1200}
-                loading="lazy"
+                height={1000}
+                loading="eager"
+                sizes="(max-width: 759px) 100vw, 1200px"
               />
             </Reveal>
             <Reveal as="figure" className="horse-gallery-side">
               <Image
-                src="/images/cavalgada/cavalgada-rio.jpg"
-                alt="Cavaleiros atravessando o rio de mãos dadas durante a cavalgada"
+                src={home.horsebackRiding.imageSide}
+                alt={home.horsebackRiding.imageSideAlt}
                 width={800}
                 height={1000}
                 loading="lazy"
+                sizes="(max-width: 759px) 100vw, 400px"
               />
             </Reveal>
           </div>
           <Reveal style={{ marginTop: "2.5rem" }}>
             <a
               className="link-editorial link-light"
-              href={site.instagramCavalgada}
+              href={home.horsebackRiding.instagram}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Acompanhar as próximas cavalgadas no Instagram
+              {home.horsebackRiding.instagramLabel}
             </a>
           </Reveal>
         </div>
       </section>
 
-      <section className="section section-forest" aria-label="Experiências e lazer">
+      <ExperienceScroll />
+
+      <section className="section section-enter" aria-label="Café da manhã">
         <div className="container">
-          <Reveal className="section-head">
-            <span className="eyebrow" style={{ color: "var(--color-earth)" }}>
-              Experiências
-            </span>
-            <h2 className="h2">Lazer e sabores da propriedade.</h2>
+          <Reveal className="section-head split">
+            <div>
+              <span className="eyebrow">{home.coffeeHome.eyebrow}</span>
+              <h2 className="h2">{home.coffeeHome.title}</h2>
+            </div>
+            <p className="muted">{home.coffeeHome.text}</p>
           </Reveal>
-          <ol className="amenity-list">
-            {amenities.map((a, i) => (
-              <Reveal as="li" key={a.title}>
-                <span className="num">{String(i + 1).padStart(2, "0")}</span>
-                <div className="amenity-media">
-                  <Image src={a.img} alt={a.text} width={480} height={320} loading="lazy" />
-                </div>
-                <div>
-                  <strong>{a.title}</strong>
-                  <small>{a.text}</small>
-                </div>
+          <div className="gallery-grid">
+            {home.coffeeHome.items.map((c) => (
+              <Reveal as="figure" key={c.img} className={c.wide ? "wide" : ""}>
+                <Image
+                  src={c.img}
+                  alt={c.alt}
+                  width={c.wide ? 1600 : 800}
+                  height={c.wide ? 1200 : 800}
+                  loading={c.wide ? "eager" : "lazy"}
+                  sizes="(max-width: 759px) 100vw, 50vw"
+                />
               </Reveal>
             ))}
-          </ol>
+          </div>
           <div style={{ marginTop: "2.5rem" }}>
-            <Link href="/experiencias" className="btn btn-light">
-              Explorar experiências
+            <Link href={home.coffeeHome.cta.href} className="btn btn-light">
+              {home.coffeeHome.cta.label}
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-label="Café da manhã">
-        <div className="container">
-          <Reveal className="section-head split">
-            <div>
-              <span className="eyebrow">Café da manhã colonial</span>
-              <h2 className="h2">Quitandas caseiras para começar o dia com calma.</h2>
-            </div>
-            <p className="muted">
-              Pães, bolos e sabores da região feitos na casa, servidos todos os dias como parte
-              da estadia.
-            </p>
-          </Reveal>
-          <div className="gallery-grid">
-            {breakfast.map((b) => (
-              <Reveal as="figure" key={b.img} className={b.wide ? "wide" : ""}>
-                <Image
-                  src={b.img}
-                  alt={b.alt}
-                  width={b.wide ? 1600 : 800}
-                  height={b.wide ? 1200 : 800}
-                  loading="lazy"
-                />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" aria-label="Galeria da propriedade">
+      <section className="section section-enter" aria-label="Galeria da propriedade">
         <div className="container">
           <Reveal className="section-head">
-            <span className="eyebrow">A propriedade</span>
-            <h2 className="h2">Momentos reais do rancho.</h2>
+            <span className="eyebrow">{home.galleryHome.eyebrow}</span>
+            <h2 className="h2">{home.galleryHome.title}</h2>
           </Reveal>
           <div className="gallery-grid">
-            {gallery.map((g) => (
+            {home.galleryHome.items.map((g) => (
               <Reveal as="figure" key={g.img} className={g.wide ? "wide" : ""}>
                 <Image
                   src={g.img}
@@ -196,6 +147,7 @@ export default function Home() {
                   width={g.wide ? 1600 : 800}
                   height={g.wide ? 1200 : 800}
                   loading="lazy"
+                  sizes="(max-width: 759px) 100vw, 50vw"
                 />
               </Reveal>
             ))}
@@ -203,64 +155,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 0 }} aria-label="Localização">
-        <div className="container location-grid">
-          <Reveal>
-            <span className="eyebrow">Localização</span>
-            <h2 className="h2">Entrada de Vargem Bonita, Serra da Canastra.</h2>
-            <dl className="location-facts" style={{ marginTop: "1.5rem" }}>
-              <div>
-                <dt>Endereço</dt>
-                <dd>
-                  {site.address.label}
-                  <br />
-                  {site.address.city}
-                </dd>
-              </div>
-              <div>
-                <dt>Rota</dt>
-                <dd>
-                  <a
-                    className="link-editorial"
-                    href={site.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Abrir rota no Google Maps
-                  </a>
-                </dd>
-              </div>
-            </dl>
-            <div style={{ marginTop: "1.5rem" }}>
-              <Link href="/localizacao" className="btn btn-secondary">
-                Ver página de localização
-              </Link>
-            </div>
-          </Reveal>
-          <Reveal className="map-frame">
-            <iframe
-              title="Mapa — Chalés do Rancho, Sítio São Tiago, BR-146"
-              src={site.mapsUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section section-forest cta-final" aria-label="Consulta">
+      <section className="section section-forest section-enter cta-final" aria-label="Consulta final">
         <div className="container">
           <Reveal>
-            <span className="eyebrow" style={{ color: "var(--color-earth)" }}>
-              Planeje sua estadia
-            </span>
-            <h2 className="h2">Conte as datas da sua viagem.</h2>
-            <p className="cta-lead">
-              A gente responde no WhatsApp com disponibilidade e valores — sem compromisso.
-            </p>
-            <Link href="#consulta" className="btn btn-light">
-              Consultar disponibilidade
+            <span className="eyebrow">{home.ctaFinalHome.eyebrow}</span>
+            <h2 className="h2">{home.ctaFinalHome.title}</h2>
+            <p className="cta-lead">{home.ctaFinalHome.text}</p>
+            <Link href={home.ctaFinalHome.cta.href} className="btn btn-light">
+              {home.ctaFinalHome.cta.label}
             </Link>
           </Reveal>
         </div>

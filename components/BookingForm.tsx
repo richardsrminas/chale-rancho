@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useMemo, useState } from "react";
 import {
   buildLodgingMessage,
   formatBR,
@@ -17,28 +17,21 @@ const ACCOMMODATIONS = [
 ];
 
 function todayISO(): string {
+  if (typeof window === "undefined") return "";
   const d = new Date();
-  const iso = d.toISOString().slice(0, 10);
-  return iso;
+  return d.toISOString().slice(0, 10);
 }
 
-export default function BookingForm() {
+export default function BookingBar() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [adults, setAdults] = useState("2");
   const [children, setChildren] = useState("0");
   const [accommodation, setAccommodation] = useState(ACCOMMODATIONS[0]);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  // "today" lido de forma segura para hidratação: no servidor (e na primeira
-  // renderização do cliente) retorna ""; só depois é recalculado no cliente.
-  const today = useSyncExternalStore(
-    () => () => {},
-    () => todayISO(),
-    () => ""
-  );
+  const [today] = useState(() => todayISO());
 
   const number = useMemo(() => getLodgingNumber(), []);
-
   const nights = checkIn && checkOut ? nightsBetween(checkIn, checkOut) : 0;
 
   function validate(): boolean {
@@ -71,7 +64,7 @@ export default function BookingForm() {
   }
 
   return (
-    <form className="booking-form" onSubmit={onSubmit} noValidate aria-label="Consulta de hospedagem">
+    <form className="booking-form" onSubmit={onSubmit} noValidate>
       <div className="field">
         <label htmlFor="checkin">Check-in</label>
         <input
@@ -132,7 +125,7 @@ export default function BookingForm() {
           ))}
         </select>
       </div>
-      <div className="field">
+      <div className="field actions">
         <span className="booking-summary" aria-live="polite">
           {checkIn && checkOut && nights > 0
             ? `${nights} ${nights === 1 ? "noite" : "noites"}`
@@ -143,22 +136,9 @@ export default function BookingForm() {
             Consultar pelo WhatsApp
           </button>
         ) : (
-          <p className="pending-note" role="status">
-            Consulta pelo WhatsApp em configuração.{" "}
-            <a
-              href="https://www.instagram.com/chalesdorancho.canastra/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Fale com a gente pelo Instagram
-            </a>{" "}
-            enquanto isso.
-            {process.env.NODE_ENV === "development" && (
-              <small className="dev-hint">
-                (dev: defina NEXT_PUBLIC_WHATSAPP_LODGING no .env.local)
-              </small>
-            )}
-          </p>
+          <button type="button" className="btn btn-primary" disabled>
+            Consultar pelo WhatsApp
+          </button>
         )}
       </div>
       <p className="booking-disclaimer">

@@ -4,7 +4,7 @@ import { hero } from "@/lib/content";
 
 export default function HeroSection() {
   return (
-    <section className="hero" aria-label="Apresentação">
+    <section className="hero" aria-label="Apresentação da pousada">
       <div className="hero-media">
         {/* Mobile: vídeo vertical 9:16 */}
         <video
@@ -13,12 +13,13 @@ export default function HeroSection() {
           muted
           loop
           playsInline
-          poster="/images/paisagem/vista06.jpeg"
+          poster={hero.posterMobile}
           aria-hidden="true"
+          preload="metadata"
         >
           <source src={hero.videoMobile} type="video/mp4" />
         </video>
-        {/* Desktop: foto horizontal real, sem esticar o vídeo */}
+        {/* Desktop: fotografia horizontal real, sem esticar o vídeo */}
         <Image
           className="desktop-only"
           src={hero.imageDesktop}

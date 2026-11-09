@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { accommodations } from "@/lib/content";
+import { accommodationsPage } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Acomodações",
@@ -24,7 +24,7 @@ export default function AcomodacoesPage() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
           <div className="gallery-grid">
-            {accommodations.map((a, i) => (
+            {accommodationsPage.items.map((a, i) => (
               <Reveal
                 as="figure"
                 key={a.img}
