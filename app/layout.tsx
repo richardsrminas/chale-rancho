@@ -19,6 +19,7 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://chalesdorancho.com.br"),
   title: {
     default: "Chalés do Rancho | Hospedagem e lazer na Serra da Canastra",
     template: "%s | Chalés do Rancho",
